@@ -160,6 +160,7 @@ return [
          * Package Service Providers...
          */
         L5Swagger\L5SwaggerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -183,6 +184,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Log' => Illuminate\Support\Facades\Log::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ])->toArray(),
 
 ];

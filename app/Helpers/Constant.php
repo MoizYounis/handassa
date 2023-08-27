@@ -10,4 +10,6 @@ class Constant
     const PERSON = 'person';
     const COMPANY = 'company';
     const FREELANCER = 'freelancer';
+    const TRUE = true;
+    const FALSE = false;
 }

@@ -86,6 +86,28 @@
                     "description": "Register",
                     "required": true,
                     "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "image": {
+                                        "description": "image to upload",
+                                        "type": "file",
+                                        "format": "file"
+                                    },
+                                    "cr copy": {
+                                        "description": "cr copy to upload for company",
+                                        "type": "file",
+                                        "format": "file"
+                                    },
+                                    "id copy": {
+                                        "description": "id copy to upload for freelancer",
+                                        "type": "file",
+                                        "format": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
                         "application/json": {
                             "schema": {
                                 "required": [
@@ -106,11 +128,6 @@
                                         "type": "string",
                                         "format": "string",
                                         "example": "person"
-                                    },
-                                    "image": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "image.jpg"
                                     },
                                     "username": {
                                         "type": "string",
@@ -137,15 +154,15 @@
                                         "format": "string",
                                         "example": "Al Doha"
                                     },
-                                    "cr_copy": {
+                                    "services": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "cr_copy.jpg for company"
+                                        "example": "[1,2] for professional"
                                     },
-                                    "id_copy": {
+                                    "categories": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "id_copy.jpg for freelancer"
+                                        "example": "[1,2] for professional"
                                     }
                                 },
                                 "type": "object"
@@ -158,6 +175,130 @@
                         "description": "Success"
                     }
                 }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login",
+                "operationId": "login",
+                "requestBody": {
+                    "description": "Login",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "mobile_number"
+                                ],
+                                "properties": {
+                                    "mobile_number": {
+                                        "type": "string",
+                                        "format": "mobile_number",
+                                        "example": "+921234567890"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/locations": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Locations",
+                "operationId": "Locations",
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/services": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Services",
+                "operationId": "Services",
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/categories": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Categories",
+                "operationId": "Categories",
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/upload_image": {
+            "post": {
+                "tags": [
+                    "Upload Image"
+                ],
+                "summary": "Upload Image",
+                "operationId": "uploadImage",
+                "requestBody": {
+                    "description": "Upload Image",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "image": {
+                                        "description": "image to upload",
+                                        "type": "file",
+                                        "format": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
             }
         }
     }

@@ -18,7 +18,14 @@ use Illuminate\Support\Facades\Route;
 Route::controller(AuthController::class)->group(function () {
     Route::post('check_username', 'checkUsername');
     Route::post('check_mobile_number', 'checkMobileNumber');
+    Route::get('locations', 'locations');
+    Route::get('services', 'services');
+    Route::get('categories', 'categories');
     Route::post('register', 'register');
+    Route::post('login', 'login');
 });
 Route::middleware('auth:sanctum')->group(function () {
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('upload_image', 'uploadImage');
+    });
 });
