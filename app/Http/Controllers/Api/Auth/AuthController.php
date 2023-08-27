@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Contracts\AuthContract;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CheckMobileNumberRequest;
+use App\Http\Requests\CheckUsernameRequest;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 
@@ -14,6 +16,57 @@ class AuthController extends Controller
     {
         $this->auth = $auth;
     }
+
+    /**
+     * @OA\POST(
+     *     path="/api/check_username",
+     *     tags={"Auth"},
+     *     summary="Check Username",
+     *     operationId="checkUsername",
+     *      @OA\RequestBody(
+     *         description="Check Username",
+     *         required=true,
+     *         @OA\JsonContent(
+     *               required={"username"},
+     *               @OA\Property(property="username", type="string", format="string", example="Person1")
+     *           ),
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="Success"
+     *     ),
+     * )
+     */
+    public function checkUsername(CheckUsernameRequest $request)
+    {
+        return $this->sendJson(true, $request->username);
+    }
+
+    /**
+     * @OA\POST(
+     *     path="/api/check_mobile_number",
+     *     tags={"Auth"},
+     *     summary="Check Mobile Number",
+     *     operationId="checkMobileNumber",
+     *      @OA\RequestBody(
+     *         description="Check Mobile Number",
+     *         required=true,
+     *         @OA\JsonContent(
+     *               required={"mobile_number"},
+     *               @OA\Property(property="mobile_number", type="string", format="string", example="+921234567890")
+     *           ),
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="Success"
+     *     ),
+     * )
+     */
+    public function checkMobileNumber(CheckMobileNumberRequest $request)
+    {
+        return $this->sendJson(true, $request->mobile_number);
+    }
+
     /**
      * @OA\Post(
      *     path="/api/register",
@@ -24,20 +77,17 @@ class AuthController extends Controller
      *         description="Register",
      *         required=true,
      *         @OA\JsonContent(
-     *               required={"first_name", "occupation_id", "last_name", "email", "phone_number", "password","password_confirmation", "state", "city", "street", "latitude", "longitude"},
-     *               @OA\Property(property="first_name", type="string", format="string", example="John"),
-     *               @OA\Property(property="last_name", type="string", format="string", example="Doe"),
-     *               @OA\Property(property="occupation_id", type="integer", format="integer", example="1"),
-     *               @OA\Property(property="email", type="string", format="email", example="user@mail.com"),
-     *               @OA\Property(property="phone_number", type="string", format="phone_number", example="+16472944676"),
-     *               @OA\Property(property="password", type="string", format="password", example=""),
-     *               @OA\Property(property="password_confirmation", type="string", format="string", example=""),
-     *               @OA\Property(property="state", type="string", format="string", example=""),
-     *               @OA\Property(property="city", type="string", format="string", example=""),
-     *               @OA\Property(property="street", type="string", format="string", example=""),
-     *               @OA\Property(property="zipcode", type="string", format="string", example=""),
-     *               @OA\Property(property="latitude", type="string", format="string", example=""),
-     *               @OA\Property(property="longitude", type="string", format="string", example=""),
+     *               required={"role", "type", "username", "name", "mobile_number", "location"},
+     *               @OA\Property(property="role", type="string", format="string", example="client"),
+     *               @OA\Property(property="type", type="string", format="string", example="person"),
+     *               @OA\Property(property="image", type="string", format="string", example="image.jpg"),
+     *               @OA\Property(property="username", type="string", format="string", example="person1"),
+     *               @OA\Property(property="name", type="string", format="string", example="My Name"),
+     *               @OA\Property(property="mobile_number", type="string", format="string", example="+921234567890"),
+     *               @OA\Property(property="phone_number", type="string", format="string", example="+921234567890 for freelancer company"),
+     *               @OA\Property(property="location", type="string", format="string", example="Al Doha"),
+     *               @OA\Property(property="cr_copy", type="string", format="string", example="cr_copy.jpg for company"),
+     *               @OA\Property(property="id_copy", type="string", format="string", example="id_copy.jpg for freelancer"),
      *           ),
      *     ),
      *     @OA\Response(

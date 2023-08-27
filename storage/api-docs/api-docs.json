@@ -5,6 +5,76 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/check_username": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Check Username",
+                "operationId": "checkUsername",
+                "requestBody": {
+                    "description": "Check Username",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Person1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/check_mobile_number": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Check Mobile Number",
+                "operationId": "checkMobileNumber",
+                "requestBody": {
+                    "description": "Check Mobile Number",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "mobile_number"
+                                ],
+                                "properties": {
+                                    "mobile_number": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "+921234567890"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
         "/api/register": {
             "post": {
                 "tags": [
@@ -19,84 +89,63 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "first_name",
-                                    "occupation_id",
-                                    "last_name",
-                                    "email",
-                                    "phone_number",
-                                    "password",
-                                    "password_confirmation",
-                                    "state",
-                                    "city",
-                                    "street",
-                                    "latitude",
-                                    "longitude"
+                                    "role",
+                                    "type",
+                                    "username",
+                                    "name",
+                                    "mobile_number",
+                                    "location"
                                 ],
                                 "properties": {
-                                    "first_name": {
+                                    "role": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "John"
+                                        "example": "client"
                                     },
-                                    "last_name": {
+                                    "type": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "Doe"
+                                        "example": "person"
                                     },
-                                    "occupation_id": {
-                                        "type": "integer",
-                                        "format": "integer",
-                                        "example": "1"
-                                    },
-                                    "email": {
+                                    "image": {
                                         "type": "string",
-                                        "format": "email",
-                                        "example": "user@mail.com"
+                                        "format": "string",
+                                        "example": "image.jpg"
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "person1"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "My Name"
+                                    },
+                                    "mobile_number": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "+921234567890"
                                     },
                                     "phone_number": {
                                         "type": "string",
-                                        "format": "phone_number",
-                                        "example": "+16472944676"
+                                        "format": "string",
+                                        "example": "+921234567890 for freelancer company"
                                     },
-                                    "password": {
-                                        "type": "string",
-                                        "format": "password",
-                                        "example": ""
-                                    },
-                                    "password_confirmation": {
+                                    "location": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": ""
+                                        "example": "Al Doha"
                                     },
-                                    "state": {
+                                    "cr_copy": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": ""
+                                        "example": "cr_copy.jpg for company"
                                     },
-                                    "city": {
+                                    "id_copy": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": ""
-                                    },
-                                    "street": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": ""
-                                    },
-                                    "zipcode": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": ""
-                                    },
-                                    "latitude": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": ""
-                                    },
-                                    "longitude": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": ""
+                                        "example": "id_copy.jpg for freelancer"
                                     }
                                 },
                                 "type": "object"

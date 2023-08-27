@@ -1,6 +1,6 @@
 <?php
 
-use Log;
+use Illuminate\Support\Facades\Log;
 
 if (!function_exists('save_date')) {
     function logMessage($endpoint, $input, $exception)
