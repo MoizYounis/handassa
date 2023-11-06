@@ -283,6 +283,146 @@
                     "default": {
                         "description": "Success"
                     }
+                }
+            }
+        },
+        "/api/posts": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": " All Posts",
+                "operationId": "allPosts",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "new"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/client/save/post": {
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Save Post",
+                "operationId": "savePost",
+                "requestBody": {
+                    "description": "Save Post",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "service_id",
+                                    "category_id",
+                                    "title",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "service_id": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "title"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "description"
+                                    },
+                                    "job": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/professional/post/proposal": {
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Post Proposal",
+                "operationId": "postProposal",
+                "requestBody": {
+                    "description": "Post Proposal",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "post_id",
+                                    "price",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "post_id": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1"
+                                    },
+                                    "price": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "20.22"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "description"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
                 },
                 "security": [
                     {

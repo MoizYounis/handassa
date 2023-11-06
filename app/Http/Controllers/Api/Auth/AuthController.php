@@ -269,7 +269,6 @@ class AuthController extends Controller
      *     tags={"Upload Image"},
      *     summary="Upload Image",
      *     operationId="uploadImage",
-     *     security={ {"sanctum": {} }},
      *      @OA\RequestBody(
      *         description="Upload Image",
      *         required=true,
@@ -296,7 +295,7 @@ class AuthController extends Controller
         try {
             $image = $request->image;
             DB::beginTransaction();
-            $image = $this->auth->uploadImage($this->user, $image);
+            $image = $this->auth->uploadImage($image);
             DB::commit();
             return $this->sendJson(true, "Image uploaded successfully.", $image);
         } catch (\Throwable $th) {

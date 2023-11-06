@@ -24,7 +24,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'role' => "required|string|in:" . Constant::CLIENT . ',' . Constant::PROFESSIONAL,
-            'type' => "required|string|in:" . Constant::PERSON . ',' . Constant::FREELANCER . ',' . Constant::COMPANY,
+            'type' => "required|string|in:" . Constant::PERSON . ',' . Constant::COMPANY,
             'image' => 'image|mimes:jpg,jpeg,png',
             'username' => 'required|string|regex:/^\S*$/u|max:255|unique:users,username',
             'name' => 'required|string|max:255',
@@ -34,7 +34,7 @@ class RegisterRequest extends FormRequest
             'services' => 'array|exists:services,id|required_if:role,' . Constant::PROFESSIONAL,
             'categories' => 'array|exists:categories,id|required_if:role,' . Constant::PROFESSIONAL,
             'cr_copy' => 'image|mimes:jpg,jpeg,png|required_if:type,' . Constant::COMPANY,
-            'id_copy' => 'image|mimes:jpg,jpeg,png|required_if:type,' . Constant::FREELANCER,
+            'id_copy' => 'image|mimes:jpg,jpeg,png|required_if:type,' . Constant::PERSON . ',' . Constant::PROFESSIONAL
         ];
     }
 

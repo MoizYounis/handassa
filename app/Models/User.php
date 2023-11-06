@@ -73,4 +73,19 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Category::class, 'user_categories', 'user_id', 'category_id');
     }
+
+    /**
+     * Get all of the clientPosts for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function clientPosts(): HasMany
+    {
+        return $this->hasMany(Post::class, 'client_id');
+    }
+
+    public function professionalPosts(): HasMany
+    {
+        return $this->hasMany(Post::class, 'professional_id');
+    }
 }

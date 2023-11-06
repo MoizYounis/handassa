@@ -9,5 +9,5 @@ interface AuthContract
     public function locations();
     public function services();
     public function categories();
-    public function uploadImage($user, $image);
+    public function uploadImage($image);
 }

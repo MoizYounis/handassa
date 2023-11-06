@@ -114,13 +114,11 @@ class AuthService extends BaseService implements AuthContract
         return $categories;
     }
 
-    public function uploadImage($user, $image)
+    public function uploadImage($image)
     {
         if (isset($image) && $image) {
             $image = $this->upload($image);
-            $user->image = $image;
-            $user->save();
-            return asset('storage/' . $image);
+            return $image;
         }
     }
 }
