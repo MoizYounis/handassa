@@ -30,8 +30,8 @@ class RegisterRequest extends FormRequest
             'mobile_number' => 'required|string|max:255|unique:users,mobile_number',
             'phone_number' => 'nullable|string|max:255',
             'location' => 'nullable|string|max:255|exists:locations,location',
-            'services' => 'array|exists:services,id|required_if:role,' . Constant::PROFESSIONAL,
-            'categories' => 'array|exists:categories,id|required_if:role,' . Constant::PROFESSIONAL,
+            'services' => 'string|required_if:role,' . Constant::PROFESSIONAL,
+            'categories' => 'string|required_if:role,' . Constant::PROFESSIONAL,
             'cr_copy' => 'required_if:type,' . Constant::COMPANY
         ];
 
@@ -68,8 +68,8 @@ class RegisterRequest extends FormRequest
             'mobile_number' => $request['mobile_number'],
             'phone_number' => $request['phone_number'],
             'location' => $request['location'],
-            'services' => $request['services'],
-            'categories' => $request['categories'],
+            'services' => explode(',', $request['services']),
+            'categories' => explode(',', $request['categories']),
             'cr_copy' => $request['cr_copy'],
             'id_copy' => $request['id_copy'],
             'project_images' => $request['project_images']

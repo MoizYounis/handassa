@@ -326,7 +326,8 @@
                                     "service_id",
                                     "category_id",
                                     "title",
-                                    "description"
+                                    "description",
+                                    "image"
                                 ],
                                 "properties": {
                                     "service_id": {
@@ -349,10 +350,10 @@
                                         "format": "string",
                                         "example": "description"
                                     },
-                                    "job": {
+                                    "image": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": ""
+                                        "example": "image.jpg"
                                     }
                                 },
                                 "type": "object"
