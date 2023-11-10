@@ -25,7 +25,8 @@ class PostRequest extends FormRequest
             "service_id" => 'required|integer|exists:services,id',
             "category_id" => 'required|integer|exists:categories,id',
             "title" => 'required|string|max:255',
-            "description" => 'required|string'
+            "description" => 'required|string',
+            "image" => 'required|string'
         ];
     }
 
@@ -37,7 +38,7 @@ class PostRequest extends FormRequest
             "category_id" => $request['category_id'],
             "title" => $request['title'],
             "description" => $request['description'],
-            "job" => $request['job']
+            "image" => $request['image']
         ];
     }
 }

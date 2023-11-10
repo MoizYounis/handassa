@@ -69,8 +69,8 @@ class PostService extends BaseService implements PostContract
             $model->description = $data['description'];
         }
 
-        if (isset($data['job']) && $data['job']) {
-            $model->job = $data['job'];
+        if (isset($data['image']) && $data['image']) {
+            $model->image = $data['image'];
         }
 
         $model->save();

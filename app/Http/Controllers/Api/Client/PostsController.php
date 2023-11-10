@@ -82,12 +82,12 @@ class PostsController extends Controller
      *         description="Save Post",
      *         required=true,
      *      @OA\JsonContent(
-     *               required={"service_id", "category_id", "title", "description"},
+     *               required={"service_id", "category_id", "title", "description", "image"},
      *               @OA\Property(property="service_id", type="integer", format="integer", example="1"),
      *               @OA\Property(property="category_id", type="integer", format="integer", example="1"),
      *               @OA\Property(property="title", type="string", format="string", example="title"),
      *               @OA\Property(property="description", type="string", format="string", example="description"),
-     *               @OA\Property(property="job", type="string", format="string", example="")
+     *               @OA\Property(property="image", type="string", format="string", example="image.jpg")
      *           ),
      *      ),
      *     @OA\Response(
