@@ -86,28 +86,6 @@
                     "description": "Register",
                     "required": true,
                     "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "properties": {
-                                    "image": {
-                                        "description": "image to upload",
-                                        "type": "file",
-                                        "format": "file"
-                                    },
-                                    "cr copy": {
-                                        "description": "cr copy to upload for company",
-                                        "type": "file",
-                                        "format": "file"
-                                    },
-                                    "id copy": {
-                                        "description": "id copy to upload for freelancer",
-                                        "type": "file",
-                                        "format": "file"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        },
                         "application/json": {
                             "schema": {
                                 "required": [
@@ -147,7 +125,7 @@
                                     "phone_number": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "+921234567890 for freelancer company"
+                                        "example": "+921234567890 for professional person and company"
                                     },
                                     "location": {
                                         "type": "string",
@@ -163,6 +141,21 @@
                                         "type": "string",
                                         "format": "string",
                                         "example": "[1,2] for professional"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "image to upload"
+                                    },
+                                    "cr_copy": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "cr copy to upload for company"
+                                    },
+                                    "id_copy": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "id copy to upload for professional person"
                                     }
                                 },
                                 "type": "object"

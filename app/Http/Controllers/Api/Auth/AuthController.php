@@ -103,29 +103,6 @@ class AuthController extends Controller
      *      @OA\RequestBody(
      *         description="Register",
      *         required=true,
-     *         @OA\MediaType(
-     *             mediaType="multipart/form-data",
-     *             @OA\Schema(
-     *                 @OA\Property(
-     *                     description="image to upload",
-     *                     property="image",
-     *                     type="file",
-     *                     format="file",
-     *                 ),
-     *                 @OA\Property(
-     *                     description="cr copy to upload for company",
-     *                     property="cr copy",
-     *                     type="file",
-     *                     format="file",
-     *                 ),
-     *                 @OA\Property(
-     *                     description="id copy to upload for freelancer",
-     *                     property="id copy",
-     *                     type="file",
-     *                     format="file",
-     *                 ),
-     *             )
-     *         ),
      *         @OA\JsonContent(
      *               required={"role", "type", "username", "name", "mobile_number", "location"},
      *               @OA\Property(property="role", type="string", format="string", example="client"),
@@ -133,10 +110,13 @@ class AuthController extends Controller
      *               @OA\Property(property="username", type="string", format="string", example="person1"),
      *               @OA\Property(property="name", type="string", format="string", example="My Name"),
      *               @OA\Property(property="mobile_number", type="string", format="string", example="+921234567890"),
-     *               @OA\Property(property="phone_number", type="string", format="string", example="+921234567890 for freelancer company"),
+     *               @OA\Property(property="phone_number", type="string", format="string", example="+921234567890 for professional person and company"),
      *               @OA\Property(property="location", type="string", format="string", example="Al Doha"),
      *               @OA\Property(property="services", type="string", format="string", example="[1,2] for professional"),
-     *               @OA\Property(property="categories", type="string", format="string", example="[1,2] for professional")
+     *               @OA\Property(property="categories", type="string", format="string", example="[1,2] for professional"),
+     *               @OA\Property(property="image", type="string", format="string", example="image to upload"),
+     *               @OA\Property(property="cr_copy", type="string", format="string", example="cr copy to upload for company"),
+     *               @OA\Property(property="id_copy", type="string", format="string", example="id copy to upload for professional person")
      *           ),
      *     ),
      *     @OA\Response(

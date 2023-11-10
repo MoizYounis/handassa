@@ -22,10 +22,9 @@ class RegisterRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'role' => "required|string|in:" . Constant::CLIENT . ',' . Constant::PROFESSIONAL,
             'type' => "required|string|in:" . Constant::PERSON . ',' . Constant::COMPANY,
-            'image' => 'image|mimes:jpg,jpeg,png',
             'username' => 'required|string|regex:/^\S*$/u|max:255|unique:users,username',
             'name' => 'required|string|max:255',
             'mobile_number' => 'required|string|max:255|unique:users,mobile_number',
@@ -33,9 +32,16 @@ class RegisterRequest extends FormRequest
             'location' => 'nullable|string|max:255|exists:locations,location',
             'services' => 'array|exists:services,id|required_if:role,' . Constant::PROFESSIONAL,
             'categories' => 'array|exists:categories,id|required_if:role,' . Constant::PROFESSIONAL,
-            'cr_copy' => 'image|mimes:jpg,jpeg,png|required_if:type,' . Constant::COMPANY,
-            'id_copy' => 'image|mimes:jpg,jpeg,png|required_if:type,' . Constant::PERSON . ',' . Constant::PROFESSIONAL
+            'cr_copy' => 'required_if:type,' . Constant::COMPANY
         ];
+
+        // Check if the user role is professional and type is person
+        if ($this->input('role') === Constant::PROFESSIONAL && $this->input('type') === Constant::PERSON) {
+            // Add the rule for the id_copy field to be required
+            $rules['id_copy'] = 'required';
+        }
+
+        return $rules;
     }
 
     /**
@@ -66,6 +72,7 @@ class RegisterRequest extends FormRequest
             'categories' => $request['categories'],
             'cr_copy' => $request['cr_copy'],
             'id_copy' => $request['id_copy'],
+            'project_images' => $request['project_images']
         ];
     }
 }

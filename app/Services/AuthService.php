@@ -7,6 +7,7 @@ use App\Contracts\AuthContract;
 use App\Helpers\Constant;
 use App\Models\Category;
 use App\Models\Location;
+use App\Models\ProfessionalProjectImage;
 use App\Models\Service;
 use App\Models\User;
 use App\Traits\ImageUpload;
@@ -17,6 +18,7 @@ class AuthService extends BaseService implements AuthContract
     protected $locations;
     protected $services;
     protected $categories;
+    protected $professional_project_image;
 
     public function __construct()
     {
@@ -24,6 +26,7 @@ class AuthService extends BaseService implements AuthContract
         $this->locations = new Location();
         $this->services = new Service();
         $this->categories = new Category();
+        $this->professional_project_image = new ProfessionalProjectImage();
     }
     public function register($data)
     {
@@ -49,8 +52,7 @@ class AuthService extends BaseService implements AuthContract
         }
 
         if (isset($data['image']) && $data['image']) {
-            $image = $this->upload($data['image']);
-            $model->image = $image;
+            $model->image = $data['image'];
         }
 
         if (isset($data['username']) && $data['username']) {
@@ -74,13 +76,11 @@ class AuthService extends BaseService implements AuthContract
         }
 
         if (isset($data['cr_copy']) && $data['cr_copy']) {
-            $cr_copy = $this->upload($data['cr_copy']);
-            $model->cr_copy = $cr_copy;
+            $model->cr_copy = $data['cr_copy'];
         }
 
         if (isset($data['id_copy']) && $data['id_copy']) {
-            $id_copy = $this->upload($data['id_copy']);
-            $model->id_copy = $id_copy;
+            $model->id_copy = $data['id_copy'];
         }
 
         $model->save();
@@ -91,6 +91,16 @@ class AuthService extends BaseService implements AuthContract
 
         if (isset($data['categories']) && $data['categories']) {
             $model->categories()->sync($data['categories']);
+        }
+
+        if (isset($data['project_images']) && $data['project_images']) {
+            foreach ($data['project_images'] as $key => $value) {
+                $project_image = $this->upload($value);
+                $this->professional_project_image::create([
+                    "professional_id" => $model->id,
+                    "image" => $project_image
+                ]);
+            }
         }
 
         return $model;

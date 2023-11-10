@@ -7,6 +7,7 @@ use App\Models\Service;
 use App\Models\Category;
 use App\Models\UserService;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\ProfessionalProjectImage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -87,5 +88,10 @@ class User extends Authenticatable
     public function professionalPosts(): HasMany
     {
         return $this->hasMany(Post::class, 'professional_id');
+    }
+
+    public function professionalProjectImage(): HasMany
+    {
+        return $this->hasMany(ProfessionalProjectImage::class, 'professional_id');
     }
 }

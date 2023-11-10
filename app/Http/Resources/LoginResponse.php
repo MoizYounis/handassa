@@ -29,7 +29,8 @@ class LoginResponse extends JsonResource
             'cr_copy' => $this->cr_copy ? asset('storage/' . $this->cr_copy) : null,
             'id_copy' => $this->id_copy ? asset('storage/' . $this->id_copy) : null,
             "services" => new ServiceResourceCollection($this->services),
-            "categories" => new CategoryResourceCollection($this->categories)
+            "categories" => new CategoryResourceCollection($this->categories),
+            "project_images" => new ProfessionalProjectImageResourceCollection($this->professionalProjectImage()->select('id', 'professional_id', 'image')->get())
         ];
         // return parent::toArray($request);
     }
