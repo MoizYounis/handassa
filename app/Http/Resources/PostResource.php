@@ -21,8 +21,7 @@ class PostResource extends JsonResource
             'category' => $this->category,
             'title' => $this->title,
             'description' => $this->description,
-            'image' => asset('storage/' . $this->image),
-            "proposals" => ($this->status == Constant::NEW && auth()->user()->role == Constant::CLIENT) ? new PostProposalResourceCollection($this->proposals()->with('professional:id,name,image')->get()) : null
+            'image' => asset('storage/' . $this->image)
         ];
         // return parent::toArray($request);
     }

@@ -309,6 +309,37 @@
                 ]
             }
         },
+        "/api/client/post/{id}/proposals": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Post All Proposals",
+                "operationId": "postAllProposals",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/api/client/save/post": {
             "post": {
                 "tags": [

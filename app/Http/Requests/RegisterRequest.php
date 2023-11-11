@@ -25,6 +25,9 @@ class RegisterRequest extends FormRequest
         $rules = [
             'role' => "required|string|in:" . Constant::CLIENT . ',' . Constant::PROFESSIONAL,
             'type' => "required|string|in:" . Constant::PERSON . ',' . Constant::COMPANY,
+            'experience' => 'nullable|integer',
+            'total_project' => 'nullable|integer',
+            'project_done_by_app' => 'nullable|integer',
             'username' => 'required|string|regex:/^\S*$/u|max:255|unique:users,username',
             'name' => 'required|string|max:255',
             'mobile_number' => 'required|string|max:255|unique:users,mobile_number',
@@ -62,6 +65,9 @@ class RegisterRequest extends FormRequest
         return [
             'role' => $request['role'],
             'type' => $request['type'],
+            'experience' => $request['experience'],
+            'total_project' => $request['total_project'],
+            'project_done_by_app' => $request['project_done_by_app'],
             'image' => $request['image'],
             'username' => $request['username'],
             'name' => $request['name'],

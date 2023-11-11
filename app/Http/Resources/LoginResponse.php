@@ -18,8 +18,12 @@ class LoginResponse extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id ? $this->id : null,
             'role' => $this->role ? $this->role : null,
             'type' => $this->type ? $this->type : null,
+            'experience' => $this->experience ? $this->experience : null,
+            'total_project' => $this->total_project ? $this->total_project : null,
+            'project_done_by_app' => $this->project_done_by_app ? $this->project_done_by_app : null,
             'image' => $this->image ? asset('storage/' . $this->image) : null,
             'username' => $this->username ? $this->username : null,
             'name' => $this->name ? $this->name : null,

@@ -10,6 +10,7 @@ use App\Http\Requests\PostStatusRequest;
 use App\Http\Requests\Client\ProposalStatusRequest;
 use App\Http\Requests\PostRatingRequest;
 use App\Http\Requests\Professional\PostProposalRequest;
+use App\Http\Resources\PostProposalResourceCollection;
 use App\Http\Resources\PostResourceCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -70,6 +71,41 @@ class PostsController extends Controller
             return $this->sendJson(true, "Success", $posts);
         } catch (\Throwable $th) {
             logMessage("client/posts", "", $th->getMessage());
+            return $this->sendJson(false, ResponseMessages::MESSAGE_500);
+        }
+    }
+
+    /**
+     * @OA\GET(
+     *     path="/api/client/post/{id}/proposals",
+     *     tags={"Posts"},
+     *     summary="Post All Proposals",
+     *     operationId="postAllProposals",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="integer",
+     *             example="1",
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="Success"
+     *     ),
+     * )
+     */
+    public function proposals($id)
+    {
+        try {
+            $proposals = $this->post->proposals($id);
+            $proposals = new PostProposalResourceCollection($proposals);
+            return $this->sendJson(true, "Success", $proposals);
+        } catch (\Throwable $th) {
+            logMessage("client/post/{$id}/proposals", $id, $th->getMessage());
             return $this->sendJson(false, ResponseMessages::MESSAGE_500);
         }
     }

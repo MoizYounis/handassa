@@ -39,6 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::controller(PostsController::class)->group(function () {
             Route::post('save/post', 'store');
             Route::post('proposal/status', 'proposalStatus');
+            Route::get('post/{id}/proposals', 'proposals');
         });
     });
 

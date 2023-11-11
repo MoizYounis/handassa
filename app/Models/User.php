@@ -38,6 +38,9 @@ class User extends Authenticatable
         'longitude',
         'role',
         'type',
+        'experience',
+        'total_project',
+        'project_done_by_app',
         'email',
         'password'
     ];

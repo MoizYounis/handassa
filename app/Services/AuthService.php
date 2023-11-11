@@ -51,6 +51,18 @@ class AuthService extends BaseService implements AuthContract
             $model->type = $data['type'];
         }
 
+        if (isset($data['experience']) && $data['experience']) {
+            $model->experience = $data['experience'];
+        }
+
+        if (isset($data['total_project']) && $data['total_project']) {
+            $model->total_project = $data['total_project'];
+        }
+
+        if (isset($data['project_done_by_app']) && $data['project_done_by_app']) {
+            $model->project_done_by_app = $data['project_done_by_app'];
+        }
+
         if (isset($data['image']) && $data['image']) {
             $model->image = $data['image'];
         }

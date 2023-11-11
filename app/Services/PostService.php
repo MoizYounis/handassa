@@ -46,6 +46,15 @@ class PostService extends BaseService implements PostContract
         return $posts;
     }
 
+    public function proposals($id)
+    {
+        $post = $this->model
+            ->with('proposals')
+            ->find($id);
+        $proposals = $post->proposals()->with('professional:id,name,image')->get();
+        return $proposals;
+    }
+
     public function store($client_id, $data)
     {
         $model = $this->model;
