@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\PostRequest;
 use App\Http\Requests\PostStatusRequest;
 use App\Http\Requests\Client\ProposalStatusRequest;
+use App\Http\Requests\PostRatingRequest;
 use App\Http\Requests\Professional\PostProposalRequest;
 use App\Http\Resources\PostResourceCollection;
 use Illuminate\Http\Request;
@@ -230,7 +231,47 @@ class PostsController extends Controller
             return $this->sendJson(false, ResponseMessages::MESSAGE_500);
         } catch (\Throwable $th) {
             DB::rollBack();
-            logMessage("client/proposal/status", $request->input(), $th->getMessage());
+            logMessage("post/status", $request->input(), $th->getMessage());
+            return $this->sendJson(false, ResponseMessages::MESSAGE_500);
+        }
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/api/post/rating",
+     *     tags={"Posts"},
+     *     summary="Post Rating",
+     *     operationId="postRating",
+     *     security={ {"sanctum": {} }},
+     *      @OA\RequestBody(
+     *         description="Post Rating",
+     *         required=true,
+     *      @OA\JsonContent(
+     *               required={"post_id", "rating", "review"},
+     *               @OA\Property(property="post_id", type="integer", format="integer", example="1"),
+     *               @OA\Property(property="rating", type="string", format="string", example="3.4"),
+     *               @OA\Property(property="review", type="string", format="string", example="Nice to work with him!")
+     *           ),
+     *      ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="Success"
+     *     ),
+     * )
+     */
+    public function rating(PostRatingRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+            $rating = $this->post->rating($request->prepareRequest($this->_user->role));
+            if ($rating) {
+                DB::commit();
+                return $this->sendJson(true, "Thanks for rating!");
+            }
+            return $this->sendJson(false, ResponseMessages::MESSAGE_500);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            logMessage("post/rating", $request->input(), $th->getMessage());
             return $this->sendJson(false, ResponseMessages::MESSAGE_500);
         }
     }

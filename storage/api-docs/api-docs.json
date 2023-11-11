@@ -510,6 +510,58 @@
                     }
                 ]
             }
+        },
+        "/api/post/rating": {
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Post Rating",
+                "operationId": "postRating",
+                "requestBody": {
+                    "description": "Post Rating",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "post_id",
+                                    "rating",
+                                    "review"
+                                ],
+                                "properties": {
+                                    "post_id": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1"
+                                    },
+                                    "rating": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "3.4"
+                                    },
+                                    "review": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Nice to work with him!"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
         }
     },
     "components": {

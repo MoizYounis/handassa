@@ -5,17 +5,23 @@ namespace App\Services;
 use App\Abstracts\BaseService;
 use App\Contracts\PostContract;
 use App\Helpers\Constant;
+use App\Models\ClientRating;
 use App\Models\Post;
 use App\Models\PostProposal;
+use App\Models\ProfessionalRating;
 use Illuminate\Support\Facades\Log;
 
 class PostService extends BaseService implements PostContract
 {
     protected $post_proposal;
+    protected $professional_rating;
+    protected $client_rating;
     public function __construct()
     {
         $this->model = new Post();
         $this->post_proposal = new PostProposal();
+        $this->professional_rating = new ProfessionalRating();
+        $this->client_rating = new ClientRating();
     }
     public function index($user, $args)
     {
@@ -117,6 +123,20 @@ class PostService extends BaseService implements PostContract
     {
         $this->model->find($data['id'])->update([
             'status' => $data['status']
+        ]);
+        return true;
+    }
+
+    public function rating($data)
+    {
+        $rating_model = $data["role"] == Constant::CLIENT ? $this->professional_rating : $this->client_rating;
+        $rating_post = $this->model->find($data['post_id']);
+        $rating_model->create([
+            "post_id" => $rating_post->id,
+            "professional_id" => $rating_post->professional_id,
+            "client_id" => $rating_post->client_id,
+            "rating" => $data['rating'],
+            "review" => $data['review']
         ]);
         return true;
     }

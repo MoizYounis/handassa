@@ -51,4 +51,5 @@ Route::middleware('auth:sanctum')->group(function () {
     // All Posts
     Route::get('posts', [PostsController::class, 'index']);
     Route::post('post/status', [PostsController::class, 'postStatus']);
+    Route::post('post/rating', [PostsController::class, 'rating']);
 });

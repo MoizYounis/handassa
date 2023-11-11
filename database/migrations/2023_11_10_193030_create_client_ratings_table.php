@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(Post::class, 'post_id');
             $table->foreignIdFor(User::class, 'professional_id');
             $table->foreignIdFor(User::class, 'client_id');
-            $table->double('rating', 1, 1);
+            $table->double('rating', 2, 1);
             $table->text('review');
             $table->timestamps();
             $table->foreign('post_id')->references('id')->on('posts');
