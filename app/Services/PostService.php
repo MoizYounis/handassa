@@ -26,7 +26,7 @@ class PostService extends BaseService implements PostContract
     public function index($user, $args)
     {
         $posts = $this->model
-            ->with('service:id,name', 'category:id,name', 'proposals')
+            ->with('service:id,name', 'category:id,name', 'client:id,name,image')
             ->when($user->role == Constant::CLIENT, function ($query) use ($user, $args) {
                 return $query->where('client_id', $user->id)
                     ->where('status', $args['status']);
