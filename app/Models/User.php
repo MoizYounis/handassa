@@ -6,7 +6,9 @@ namespace App\Models;
 use App\Models\Service;
 use App\Models\Category;
 use App\Models\UserService;
+use App\Models\ClientRating;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\ProfessionalRating;
 use App\Models\ProfessionalProjectImage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -85,6 +87,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class, 'client_id');
     }
 
+    public function clientRating(): HasMany
+    {
+        return $this->hasMany(ClientRating::class, 'client_id');
+    }
+
     public function professionalPosts(): HasMany
     {
         return $this->hasMany(Post::class, 'professional_id');
@@ -93,5 +100,10 @@ class User extends Authenticatable
     public function professionalProjectImage(): HasMany
     {
         return $this->hasMany(ProfessionalProjectImage::class, 'professional_id');
+    }
+
+    public function professionalRating(): HasMany
+    {
+        return $this->hasMany(ProfessionalRating::class, 'professional_id');
     }
 }

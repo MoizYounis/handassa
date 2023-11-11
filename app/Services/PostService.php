@@ -35,6 +35,7 @@ class PostService extends BaseService implements PostContract
                         ->where('professional_id', $user->id);
                 }
             })
+            ->orderBy('id', 'DESC')
             ->get();
         return $posts;
     }
@@ -97,5 +98,26 @@ class PostService extends BaseService implements PostContract
 
         $this->post_proposal->save();
         return $this->post_proposal;
+    }
+
+    public function proposalStatus($data)
+    {
+        $proposal = $this->post_proposal->find($data['id']);
+        $proposal->update([
+            'status' => Constant::ACCEPTED
+        ]);
+        $this->model->find($proposal->post_id)->update([
+            "professional_id" => $proposal->professional_id,
+            'status' => Constant::PROCESSING
+        ]);
+        return true;
+    }
+
+    public function postStatus($data)
+    {
+        $this->model->find($data['id'])->update([
+            'status' => $data['status']
+        ]);
+        return true;
     }
 }

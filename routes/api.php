@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix(Constant::CLIENT)->group(function () {
         Route::controller(PostsController::class)->group(function () {
             Route::post('save/post', 'store');
+            Route::post('proposal/status', 'proposalStatus');
         });
     });
 
@@ -49,4 +50,5 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     // All Posts
     Route::get('posts', [PostsController::class, 'index']);
+    Route::post('post/status', [PostsController::class, 'postStatus']);
 });

@@ -6,6 +6,8 @@ use App\Contracts\PostContract;
 use App\Enum\ResponseMessages;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\PostRequest;
+use App\Http\Requests\PostStatusRequest;
+use App\Http\Requests\Client\ProposalStatusRequest;
 use App\Http\Requests\Professional\PostProposalRequest;
 use App\Http\Resources\PostResourceCollection;
 use Illuminate\Http\Request;
@@ -152,6 +154,83 @@ class PostsController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             logMessage("professional/post/proposal", $request->input(), $th->getMessage());
+            return $this->sendJson(false, ResponseMessages::MESSAGE_500);
+        }
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/api/client/proposal/status",
+     *     tags={"Posts"},
+     *     summary="Proposal Status Processing",
+     *     operationId="proposalStatusProcessing",
+     *     security={ {"sanctum": {} }},
+     *      @OA\RequestBody(
+     *         description="Proposal Status Processing",
+     *         required=true,
+     *      @OA\JsonContent(
+     *               required={"id"},
+     *               @OA\Property(property="id", type="integer", format="integer", example="1")
+     *           ),
+     *      ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="Success"
+     *     ),
+     * )
+     */
+    public function proposalStatus(ProposalStatusRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+            $proposal_status = $this->post->proposalStatus($request->prepareRequest());
+            if ($proposal_status) {
+                DB::commit();
+                return $this->sendJson(true, "Hired Successfully");
+            }
+            return $this->sendJson(false, ResponseMessages::MESSAGE_500);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            logMessage("client/proposal/status", $request->input(), $th->getMessage());
+            return $this->sendJson(false, ResponseMessages::MESSAGE_500);
+        }
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/api/post/status",
+     *     tags={"Posts"},
+     *     summary="Post Status",
+     *     operationId="postStatus",
+     *     security={ {"sanctum": {} }},
+     *      @OA\RequestBody(
+     *         description="Post Status",
+     *         required=true,
+     *      @OA\JsonContent(
+     *               required={"id", "status"},
+     *               @OA\Property(property="id", type="integer", format="integer", example="1"),
+     *               @OA\Property(property="status", type="string", format="string", example="ended or completed")
+     *           ),
+     *      ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="Success"
+     *     ),
+     * )
+     */
+    public function postStatus(PostStatusRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+            $post_status = $this->post->postStatus($request->prepareRequest());
+            if ($post_status) {
+                DB::commit();
+                return $this->sendJson(true, "Contract " . ucfirst($request->status) . " Successfully!");
+            }
+            return $this->sendJson(false, ResponseMessages::MESSAGE_500);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            logMessage("client/proposal/status", $request->input(), $th->getMessage());
             return $this->sendJson(false, ResponseMessages::MESSAGE_500);
         }
     }
