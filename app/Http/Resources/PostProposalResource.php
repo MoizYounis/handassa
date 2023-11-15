@@ -27,8 +27,7 @@ class PostProposalResource extends JsonResource
                 'experience' => $this->professional->experience ? $this->professional->experience : null,
                 'total_project' => $this->professional->total_project ? $this->professional->total_project : null,
                 'project_done_by_app' => $this->professional->project_done_by_app ? $this->professional->project_done_by_app : null,
-                "project_images" => new ProfessionalProjectImageResourceCollection($this->professional->professionalProjectImage()->select('id', 'professional_id', 'image')->get()),
-                "rating" => new RatingResourceCollection($this->professional->professionalRating()->get())
+                "project_images" => new ProfessionalProjectImageResourceCollection($this->professional->professionalProjectImage()->select('id', 'professional_id', 'image')->get())
             ]
         ];
         // return parent::toArray($request);
