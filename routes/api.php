@@ -40,6 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('save/post', 'store');
             Route::post('proposal/status', 'proposalStatus');
             Route::get('post/{id}/proposals', 'proposals');
+            Route::get('professional/{id}/rating', 'professionalRating');
         });
     });
 
@@ -53,4 +54,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('posts', [PostsController::class, 'index']);
     Route::post('post/status', [PostsController::class, 'postStatus']);
     Route::post('post/rating', [PostsController::class, 'rating']);
+    Route::post('update/profile', [AuthController::class, 'updateProfile']);
 });

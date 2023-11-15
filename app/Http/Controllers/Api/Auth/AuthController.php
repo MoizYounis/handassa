@@ -13,6 +13,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\CheckUsernameRequest;
 use App\Http\Requests\CheckMobileNumberRequest;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\ProfileRequest;
 use App\Http\Resources\ServiceResourceCollection;
 use App\Http\Resources\CategoryResourceCollection;
 use App\Http\Resources\LocationResourceCollection;
@@ -281,6 +282,56 @@ class AuthController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             logMessage("upload_file", $request->all(), $th->getMessage());
+            return $this->sendJson(false, ResponseMessages::MESSAGE_500);
+        }
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/api/update/profile",
+     *     tags={"Profile"},
+     *     summary="Update Profile",
+     *     operationId="updateProfile",
+     *     security={ {"sanctum": {} }},
+     *      @OA\RequestBody(
+     *         description="updateProfile",
+     *         required=true,
+     *         @OA\JsonContent(
+     *               required={"name", "location"},
+     *               @OA\Property(property="experience", type="integer", format="integer", example="3"),
+     *               @OA\Property(property="total_project", type="integer", format="integer", example="10"),
+     *               @OA\Property(property="project_done_by_app", type="integer", format="integer", example="7"),
+     *               @OA\Property(property="name", type="string", format="string", example="My Name"),
+     *               @OA\Property(property="phone_number", type="string", format="string", example="+921234567890 for professional person and company"),
+     *               @OA\Property(property="location", type="string", format="string", example="Al Doha"),
+     *               @OA\Property(property="services", type="string", format="string", example="1,2 for professional"),
+     *               @OA\Property(property="categories", type="string", format="string", example="1,2 for professional"),
+     *               @OA\Property(property="image", type="string", format="string", example="image to upload"),
+     *               @OA\Property(property="cr_copy", type="string", format="string", example="cr copy to upload for company"),
+     *               @OA\Property(property="id_copy", type="string", format="string", example="id copy to upload for professional person")
+     *           ),
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="Success"
+     *     ),
+     * )
+     */
+
+    public function updateProfile(ProfileRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+            $profile = $this->auth->updateProfile($this->user->id, $request->prepareRequest());
+            if ($profile) {
+                DB::commit();
+                $profile = new LoginResponse($profile);
+                return $this->sendJson(true, "Profile Updated Successfully!", $profile);
+            }
+            return $this->sendJson(false, ResponseMessages::MESSAGE_500);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            logMessage("update/profile", $request->all(), $th->getMessage());
             return $this->sendJson(false, ResponseMessages::MESSAGE_500);
         }
     }

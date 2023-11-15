@@ -10,4 +10,5 @@ interface AuthContract
     public function services();
     public function categories();
     public function uploadImage($image);
+    public function updateProfile($id, $data);
 }

@@ -11,4 +11,5 @@ interface PostContract
     public function proposalStatus($data);
     public function postStatus($data);
     public function rating($data);
+    public function professionalRating($id);
 }

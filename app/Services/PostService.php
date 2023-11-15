@@ -9,6 +9,7 @@ use App\Models\ClientRating;
 use App\Models\Post;
 use App\Models\PostProposal;
 use App\Models\ProfessionalRating;
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
 class PostService extends BaseService implements PostContract
@@ -16,12 +17,14 @@ class PostService extends BaseService implements PostContract
     protected $post_proposal;
     protected $professional_rating;
     protected $client_rating;
+    protected $user;
     public function __construct()
     {
         $this->model = new Post();
         $this->post_proposal = new PostProposal();
         $this->professional_rating = new ProfessionalRating();
         $this->client_rating = new ClientRating();
+        $this->user = new User();
     }
     public function index($user, $args)
     {
@@ -148,5 +151,15 @@ class PostService extends BaseService implements PostContract
             "review" => $data['review']
         ]);
         return true;
+    }
+
+    public function professionalRating($id)
+    {
+        $user = $this->user
+            ->with('professionalRating')
+            ->find($id);
+        $rating = $user->professionalRating()->get();
+        Log::info($rating);
+        return $rating;
     }
 }

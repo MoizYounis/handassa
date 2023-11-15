@@ -143,4 +143,11 @@ class AuthService extends BaseService implements AuthContract
             return $image;
         }
     }
+
+    public function updateProfile($id, $data)
+    {
+        $model = $this->model->find($id);
+        $profile = $this->prepareData($model, $data);
+        return $profile;
+    }
 }

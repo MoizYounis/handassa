@@ -12,6 +12,7 @@ use App\Http\Requests\PostRatingRequest;
 use App\Http\Requests\Professional\PostProposalRequest;
 use App\Http\Resources\PostProposalResourceCollection;
 use App\Http\Resources\PostResourceCollection;
+use App\Http\Resources\RatingResourceCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -275,7 +276,7 @@ class PostsController extends Controller
     /**
      * @OA\Post(
      *     path="/api/post/rating",
-     *     tags={"Posts"},
+     *     tags={"Rating"},
      *     summary="Post Rating",
      *     operationId="postRating",
      *     security={ {"sanctum": {} }},
@@ -308,6 +309,41 @@ class PostsController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             logMessage("post/rating", $request->input(), $th->getMessage());
+            return $this->sendJson(false, ResponseMessages::MESSAGE_500);
+        }
+    }
+
+    /**
+     * @OA\GET(
+     *     path="/api/client/professional/{id}/rating",
+     *     tags={"Rating"},
+     *     summary="Professional Rating",
+     *     operationId="professionalRating",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="integer",
+     *             example="1",
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="Success"
+     *     ),
+     * )
+     */
+    public function professionalRating($id)
+    {
+        try {
+            $rating = $this->post->professionalRating($id);
+            $rating = new RatingResourceCollection($rating);
+            return $this->sendJson(true, "Success", $rating);
+        } catch (\Throwable $th) {
+            logMessage("client/professional/{$id}/rating", $id, $th->getMessage());
             return $this->sendJson(false, ResponseMessages::MESSAGE_500);
         }
     }

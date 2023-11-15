@@ -279,6 +279,97 @@
                 }
             }
         },
+        "/api/update/profile": {
+            "post": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Update Profile",
+                "operationId": "updateProfile",
+                "requestBody": {
+                    "description": "updateProfile",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "location"
+                                ],
+                                "properties": {
+                                    "experience": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "3"
+                                    },
+                                    "total_project": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "10"
+                                    },
+                                    "project_done_by_app": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "7"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "My Name"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "+921234567890 for professional person and company"
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Al Doha"
+                                    },
+                                    "services": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1,2 for professional"
+                                    },
+                                    "categories": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1,2 for professional"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "image to upload"
+                                    },
+                                    "cr_copy": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "cr copy to upload for company"
+                                    },
+                                    "id_copy": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "id copy to upload for professional person"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/api/posts": {
             "get": {
                 "tags": [
@@ -545,7 +636,7 @@
         "/api/post/rating": {
             "post": {
                 "tags": [
-                    "Posts"
+                    "Rating"
                 ],
                 "summary": "Post Rating",
                 "operationId": "postRating",
@@ -582,6 +673,37 @@
                         }
                     }
                 },
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/client/professional/{id}/rating": {
+            "get": {
+                "tags": [
+                    "Rating"
+                ],
+                "summary": "Professional Rating",
+                "operationId": "professionalRating",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
                 "responses": {
                     "default": {
                         "description": "Success"
