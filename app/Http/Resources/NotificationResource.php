@@ -18,7 +18,7 @@ class NotificationResource extends JsonResource
             "id" => $this->id,
             "notification" => $this->notification,
             "is_read" => $this->is_read == 0 ? false : true,
-            "created_at" => strtotime($this->created_at) * 1000,
+            "created_at" => $this->created_at,
             "sender" => [
                 "id" => $this->sender->id,
                 "name" => $this->sender->name,

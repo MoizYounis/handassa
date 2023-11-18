@@ -18,7 +18,7 @@ class RatingResource extends JsonResource
             "id" => $this->id,
             "rating" => $this->rating,
             "review" => $this->review,
-            "created_at" => strtotime($this->created_at) * 1000,
+            "created_at" => $this->created_at,
             "client" => [
                 "id" => $this->client->id,
                 "name" => $this->client->name,
