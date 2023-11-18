@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Helpers\Constant;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -21,6 +22,7 @@ class LoginResponse extends JsonResource
             'id' => $this->id ? $this->id : null,
             'role' => $this->role ? $this->role : null,
             'type' => $this->type ? $this->type : null,
+            'rating' => $this->role == Constant::CLIENT ? $this->overall_client_rating : $this->overall_professional_rating,
             'experience' => $this->experience ? $this->experience : null,
             'total_project' => $this->total_project ? $this->total_project : null,
             'project_done_by_app' => $this->project_done_by_app ? $this->project_done_by_app : null,

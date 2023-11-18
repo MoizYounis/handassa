@@ -7,6 +7,7 @@ use App\Models\Service;
 use App\Models\Category;
 use App\Models\UserService;
 use App\Models\ClientRating;
+use App\Models\Notification;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\ProfessionalRating;
 use App\Models\ProfessionalProjectImage;
@@ -108,5 +109,36 @@ class User extends Authenticatable
     public function professionalRating(): HasMany
     {
         return $this->hasMany(ProfessionalRating::class, 'professional_id');
+    }
+
+    public function notification(): HasMany
+    {
+        return $this->hasMany(Notification::class, 'receiver_id');
+    }
+
+    public function getOverallProfessionalRatingAttribute()
+    {
+        $ratings = $this->professionalRating()->pluck('rating')->toArray();
+
+        if (count($ratings) === 0) {
+            return 0; // Or any default value you prefer
+        }
+
+        $averageRating = array_sum($ratings) / count($ratings);
+
+        return round($averageRating, 1);
+    }
+
+    public function getOverallClientRatingAttribute()
+    {
+        $ratings = $this->clientRating()->pluck('rating')->toArray();
+
+        if (count($ratings) === 0) {
+            return 0; // Or any default value you prefer
+        }
+
+        $averageRating = array_sum($ratings) / count($ratings);
+
+        return round($averageRating, 1);
     }
 }

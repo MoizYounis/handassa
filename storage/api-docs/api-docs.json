@@ -715,6 +715,87 @@
                     }
                 ]
             }
+        },
+        "/api/notifications": {
+            "get": {
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "All Notifications",
+                "operationId": "allNotifications",
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/notification/{id}/delete": {
+            "get": {
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Delete Notification",
+                "operationId": "deleteNotification",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/professional/image/{id}/delete": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Delete Project Image",
+                "operationId": "deleteProjectImage",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
         }
     },
     "components": {

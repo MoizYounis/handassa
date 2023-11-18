@@ -24,6 +24,7 @@ class PostProposalResource extends JsonResource
                 "id" => $this->professional->id,
                 "name" => $this->professional->name,
                 "image" => asset('storage/' . $this->professional->image),
+                'rating' => $this->professional->overall_professional_rating ? $this->professional->overall_professional_rating : null,
                 'experience' => $this->professional->experience ? $this->professional->experience : null,
                 'total_project' => $this->professional->total_project ? $this->professional->total_project : null,
                 'project_done_by_app' => $this->professional->project_done_by_app ? $this->professional->project_done_by_app : null,

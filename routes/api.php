@@ -3,6 +3,7 @@
 use App\Helpers\Constant;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Client\PostsController;
+use App\Http\Controllers\Api\NotificationsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +49,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix(Constant::PROFESSIONAL)->group(function () {
         Route::controller(PostsController::class)->group(function () {
             Route::post('post/proposal', 'proposal');
+            Route::get('image/{id}/delete', [NotificationsController::class, 'deleteImage']);
         });
     });
     // All Posts
@@ -55,4 +57,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('post/status', [PostsController::class, 'postStatus']);
     Route::post('post/rating', [PostsController::class, 'rating']);
     Route::post('update/profile', [AuthController::class, 'updateProfile']);
+    Route::get('notifications', [NotificationsController::class, 'index']);
+    Route::get('notification/{id}/delete', [NotificationsController::class, 'delete']);
 });
