@@ -13,6 +13,7 @@ use App\Http\Requests\Professional\PostProposalRequest;
 use App\Http\Resources\PostProposalResourceCollection;
 use App\Http\Resources\PostResourceCollection;
 use App\Http\Resources\RatingResourceCollection;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -185,6 +186,12 @@ class PostsController extends Controller
             DB::beginTransaction();
             $proposal = $this->post->proposal($proposal_data);
             if ($proposal) {
+                Notification::notification(
+                    $this->_user->id,
+                    $proposal->post->client_id,
+                    $this->_user->name . ' sends you a proposal for the ' . $proposal->post->title,
+                    $proposal->post_id
+                );
                 DB::commit();
                 return $this->sendJson(true, "Proposal send successfully!");
             }
