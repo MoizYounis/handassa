@@ -11,4 +11,5 @@ interface AuthContract
     public function categories();
     public function uploadImage($image);
     public function updateProfile($id, $data);
+    public function deleteAccount($id);
 }

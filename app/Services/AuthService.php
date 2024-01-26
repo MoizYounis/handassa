@@ -150,4 +150,14 @@ class AuthService extends BaseService implements AuthContract
         $profile = $this->prepareData($model, $data);
         return $profile;
     }
+
+    public function deleteAccount($id)
+    {
+        $user = $this->model->find($id);
+        if ($user) {
+            $user->delete();
+            return true;
+        }
+        return false;
+    }
 }

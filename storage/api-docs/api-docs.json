@@ -112,6 +112,11 @@
                                         "format": "string",
                                         "example": "person1"
                                     },
+                                    "experience": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "3"
+                                    },
                                     "name": {
                                         "type": "string",
                                         "format": "string",
@@ -358,6 +363,25 @@
                         }
                     }
                 },
+                "responses": {
+                    "default": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/delete/account": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Delete Account",
+                "operationId": "deleteAccount",
                 "responses": {
                     "default": {
                         "description": "Success"

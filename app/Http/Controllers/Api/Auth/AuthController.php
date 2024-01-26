@@ -109,6 +109,7 @@ class AuthController extends Controller
      *               @OA\Property(property="role", type="string", format="string", example="client"),
      *               @OA\Property(property="type", type="string", format="string", example="person"),
      *               @OA\Property(property="username", type="string", format="string", example="person1"),
+     *               @OA\Property(property="experience", type="integer", format="integer", example="3"),
      *               @OA\Property(property="name", type="string", format="string", example="My Name"),
      *               @OA\Property(property="mobile_number", type="string", format="string", example="+921234567890"),
      *               @OA\Property(property="phone_number", type="string", format="string", example="+921234567890 for professional person and company"),
@@ -332,6 +333,37 @@ class AuthController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             logMessage("update/profile", $request->all(), $th->getMessage());
+            return $this->sendJson(false, ResponseMessages::MESSAGE_500);
+        }
+    }
+
+    /**
+     * @OA\GET(
+     *     path="/api/delete/account",
+     *     tags={"Auth"},
+     *     summary="Delete Account",
+     *     operationId="deleteAccount",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Response(
+     *         response="default",
+     *         description="Success"
+     *     ),
+     * )
+     */
+
+    public function deleteAccount()
+    {
+        try {
+            DB::beginTransaction();
+            $user = $this->auth->deleteAccount($this->user->id);
+            if ($user) {
+                DB::commit();
+                return $this->sendJson(true, "Account Deleted Successfully!");
+            }
+            return $this->sendJson(false, ResponseMessages::MESSAGE_500);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            logMessage("api/delete/account", "", $th->getMessage());
             return $this->sendJson(false, ResponseMessages::MESSAGE_500);
         }
     }
